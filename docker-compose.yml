@@ -11,11 +11,12 @@ services:
       - jwt.env
       - database_info.env
     ports:
-      - "80:80"
+      - "3000:3000"
     depends_on:
       - db
       - sidekiq
       - redis
+      - nginx
     volumes:
        - .:/espertofit_academy
 
@@ -36,11 +37,20 @@ services:
     depends_on:
       - redis
 
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    volumes:
+      - nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
 
 
 volumes:
   Academy:
   Redis_db:
+  nginx:
 
 networks:
   default:
