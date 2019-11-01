@@ -17,9 +17,9 @@ RUN bundle install
 
 COPY . /espertofit_academy
 
-RUN export TZ=America/Sao_Paulo
-RUN export LC_ALL=C.UTF-8
-RUN export LANG=en_US.UTF-8
-RUN export LANGUAGE=en_US.UTF-8
+# RUN export TZ=America/Sao_Paulo
+# RUN export LC_ALL=C.UTF-8
+# RUN export LANG=en_US.UTF-8
+# RUN export LANGUAGE=en_US.UTF-8
 
 CMD ["rails", "server", "-b", "0.0.0.0"]

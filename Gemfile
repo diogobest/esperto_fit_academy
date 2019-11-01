@@ -48,7 +48,6 @@ gem 'devise-jwt', '~> 0.5.9'
 gem 'fast_jsonapi'
 gem 'jquery-rails'
 gem 'rack-cors'
-gem 'rubycritic', require: false
 gem 'sidekiq'
 
 group :development, :test do
@@ -57,6 +56,7 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.8'
+  gem 'rubycritic', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails'
   gem 'webmock'
