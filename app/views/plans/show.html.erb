@@ -1,0 +1,28 @@
+<div class="text-center font-weight-bold app-space-top-bottom">
+  <%= flash[:success] %>
+</div>
+
+<div class="container app-container">
+  <div class="row">
+    <div class="col">
+      <h2 class="font-weight-bold text-center text-color"><%= "#{@plan.name}" %></h2>
+      <h4>Detalhes:</h4>
+      <%= "Permanência mínima: #{@plan.minimum_permanence} meses" %>
+    </div>
+  </div>
+  <div class="row app-space-line-top">
+    <div class="col">
+      <%= link_to 'Editar', edit_plan_path(@plan), class:"btn btn-secondary btn-block" %>
+    </div>
+    <div class="col">
+      <%= link_to 'Definir preço para unidade',new_price_path, class:"btn btn-secondary btn-block" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= link_to 'Deletar Plano', plan_path(@plan), class:"btn btn-secondary btn-block app-space-button", method: :delete %>
+      <%= link_to 'Voltar', plans_path, class:"btn app-color-button btn-block app-space-button"%>
+    </div>
+  </div> 
+  
+</div>

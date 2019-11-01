@@ -1,0 +1,23 @@
+<% if @activity.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @activity.errors.full_messages.each do |message| %>
+      <li> <%= message %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= bootstrap_form_for @activity, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4" do |f| %>
+    <%= f.text_field :name %>
+    <%= f.select(:status, Activity.statuses.keys.map { |key| [t("enum.activity.status.#{key}"), key]})  %>
+    <%= f.number_field :price %>
+    <%= f.number_field :duration %>
+    <%= f.number_field :capacity %>
+    <%= f.text_area :difficulty %>
+    <%= f.text_area :equipments %>
+    <%= f.text_field :rules %>
+    <%= f.collection_select(:trainer_id, Trainer.all, :id, :name) %>
+    <%= f.collection_select(:gym_id, Gym.all, :id, :name) %>
+  <%= f.submit %>
+<% end %>

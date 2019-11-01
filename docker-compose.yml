@@ -1,0 +1,58 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - Academy:/var/lib/postgresql/data
+
+  web:
+    build: .
+    env_file:
+      - jwt.env
+      - database_info.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - sidekiq
+      - redis
+      - nginx
+    volumes:
+       - .:/espertofit_academy
+
+  redis:
+    image: redis
+    volumes:
+      - Redis_db:/var/lib/redis
+    ports:
+      - "6379:6379"
+  
+  sidekiq:
+    build: .
+    volumes:
+      - .:/espertofit_academy
+    command: bundle exec sidekiq
+    links:
+      - db
+    depends_on:
+      - redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    volumes:
+      - nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+
+
+volumes:
+  Academy:
+  Redis_db:
+  nginx:
+
+networks:
+  default:
+    external:
+      name: EspertoFitNetwork

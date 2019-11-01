@@ -1,0 +1,65 @@
+Rails.application.routes.draw do
+  require 'sidekiq/web'
+  root to: "home#index"
+  mount Sidekiq::Web => '/sidekiq'
+  resources :trainers, only: %i[create new show edit update] do
+    get 'add_units', on: :member
+  end
+
+  devise_for :employees, controllers: {sessions: "employee/sessions"}
+
+  resources :gyms, only: %i[index show new create edit update destroy]
+  resources :trainers, only: %i[index create new show edit update] 
+  resources :activities, only: %i[index show new create edit update]
+  resources :plans, only: %i[index new create show edit update destroy]
+  resources :prices, only: %i[new create]
+  resources :employees, only: %i[new create show index edit update] do
+    get 'change_status', on: :member
+  end
+  resources :clients, only: %i[show new create edit update index] do
+    get 'banishe_client', on: :member, as: 'banishe'
+    get 'suspend_client', on: :member, as: 'suspend'
+    get 'inactive_client', on: :member, as: 'inactive'
+    get 'verify_payments', on: :member
+  end
+
+  resources :gym_trainers, only: %i[destroy]
+  
+  resources :employees, only: %i[new create show]
+  resources :gyms, only: %i[] do
+    resources :trainers, only: %i[] do 
+      resources :gym_trainers, only: %i[create]
+    end
+  end
+  get 'unactives', to: 'employees#unactives', as: 'employees_unactives'
+
+  namespace :api do
+    namespace :v1 do
+      devise_for :employee, controllers: { sessions: 'api/sessions'}, defaults: { format: :json },
+      class_name: 'ApiEmployee',
+            skip: [:registrations, :passwords, :confirmations,
+                    :unlocks],
+            path: '',
+      path_names: { sign_in: 'login',
+                    sign_out: 'logout' }    
+      devise_scope :employee do
+        get 'login', to: 'api/sessions#create'
+        delete 'logout', to: 'api/sessions#destroy'
+      end
+
+      get 'show_all_plans', to: 'plans#show_all'
+      resources :plans, only: %i[index show] do
+      end
+      resources :gyms, only: %i[index show destroy] do
+        resources :plans, only: %i[index] 
+        resources :activities, only: [:index]
+      end
+      resources :clients, only: %i[create] do
+        get 'consult_cpf/:cpf', to: 'clients#consult_cpf', on: :collection
+        post ':cpf', to: 'clients#show', on: :collection
+      end
+      post 'inactivate_client/:cpf', to: 'clients#inactivate'
+    end
+  end
+  
+end

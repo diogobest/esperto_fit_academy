@@ -1,0 +1,107 @@
+pt-BR:
+  activerecord:
+    models:
+      employee: Funcionário
+      gym: Academia
+      trainer: Professor
+      activity: Aula
+      client: Matrícula
+      price: Preços
+      plan: Plano
+    attributes:
+      employee:
+        name: Nome
+        status: Status
+        statuses:
+          active: Ativo
+          unactive: Inativo
+        gym_id: Unidade
+        email: Email específico
+        password: Senha
+        admin:
+          true: Sim
+          false: Nao
+      gym:
+        name: Nome
+        cod: Código
+        address: Endereço
+        open_hour: Horário de abertura
+        close_hour: Horário de fechamento
+        working_days: Dias de funcionamento
+        gallery: Galeria
+      activity:
+        name: Nome
+        status: Status
+        price: Preço
+        duration: Horário de duração
+        capacity: Capacidade máxima
+        difficulty: Dificuldade
+        equipments: Equipamentos
+        rules: Conjunto de regras
+        trainer_id: Professor
+        gym_id: Academia
+      trainer:
+        name: Nome
+        cpf: CPF
+        status:
+          available: Disponível
+          unavailable: Indisponível
+      client:
+        name: Nome completo
+        cpf: CPF
+        email: E-mail
+        gym_id: Academia
+        plan_id: Plano
+      plan:
+        name: Nome
+        minimum_permanence: Permanência mínima
+      price:
+        gym_id: Unidades
+        plan_id: Planos
+        value: Valor
+  enum:
+    activity:
+      status:
+        active: Ativa
+        on_hold: Em pausa
+        suspended: Suspensa
+    employee:
+      status:
+        unactive: Inativo
+        active: Ativo
+    clients:
+      status:
+        active: Ativa
+        banished: Banido
+        inactive: Inativa
+        suspended: Suspenso
+  notice:
+    success_create: "%{models} cadastrado com sucesso!"
+    success_update: Alterações realizadas com sucesso!
+    success_destroy: "%{models} removido com sucesso"
+    employee_unactive: "%{models} inativado com sucesso!"
+    employee_active: "%{models} ativado com sucesso!"
+    price_create: "O plano %{price_name} na unidade %{price_gym_name} foi dado o valor de %{price_format} com sucesso!"
+    client_banished: CPF banido com sucesso!
+    client_suspend: CPF suspenso com sucesso!
+    client_inactive: Cliente desvinculado com sucesso!
+    gym:
+      successfully_editing: Academia atualizada com sucesso!
+      successfully_creating: Academia cadastrada
+      successfully_destroying: Academia removida com sucesso!
+      fails_editing: Aconteceu um erro
+    plan:
+      success_update: Alterações realizadas com sucesso
+      success_create: Plano cadastrado com sucesso!
+    trainer:
+      success_update: Alterações realizadas com sucesso
+      success_create: Professor cadastrado com sucesso
+  alert:
+    fail_create: "%{models} não cadastrado"
+    fail_update: "%{models} não alterado"
+    price_fail_create: Você deve preencher todos os campos
+
+    client:
+      not_found: Não existe esse aluno!
+      fail_inactive: Cliente deve estar com status ativo para desvincular.
+        

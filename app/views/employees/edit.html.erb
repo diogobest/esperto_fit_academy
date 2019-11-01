@@ -1,0 +1,25 @@
+<p>Preencha para editar um usuário</p>
+
+<%= bootstrap_form_for @employee, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4"  do |f| %>
+  <%= f.text_field :name  %>
+  <%= f.collection_select(:gym_id, Gym.all, :id, :name) %>
+  <%= f.text_field :email  %>
+  <%= f.password_field :password  %>
+  <%= f.submit 'Enviar' %>
+<% end %>
+<%= flash[:alert] %>
+<h2><%= "Status: #{@employee.translate_status} "%></h2>
+
+
+
+<%= link_to 'Alterar status', change_status_employee_path, data: { confirm: 'Tem certeza?' } %>
+
+<% if @employee.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @employee.errors.full_messages.each do |message| %>
+      <li> <%= message %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

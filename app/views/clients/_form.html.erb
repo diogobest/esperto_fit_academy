@@ -1,0 +1,18 @@
+<% if @client.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @client.errors.full_messages.each do |message| %>
+      <li> <%= message %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= bootstrap_form_for @client, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4"  do |f| %>
+  <%= f.text_field :name %> 
+  <%= f.text_field :cpf %>
+  <%= f.email_field :email %>
+  <%= f.collection_select(:gym_id, Gym.all, :id, :name) %>
+  <%= f.collection_select(:plan_id, Plan.all, :id, :name) %>
+  <%= f.submit %>
+<% end %>

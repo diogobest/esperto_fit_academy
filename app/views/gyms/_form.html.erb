@@ -1,0 +1,20 @@
+<% if @gym.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @gym.errors.full_messages.each do |message| %>
+      <li> <%= message %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= bootstrap_form_for @gym, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4" do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :address  %>
+  <%= f.number_field :cod %>
+  <%= f.text_field :open_hour %>
+  <%= f.text_field :close_hour %>
+  <%= f.text_area :working_days %>
+  <%= f.file_field :gallery, multiple: true %>
+  <%= f.submit %>
+<% end %>

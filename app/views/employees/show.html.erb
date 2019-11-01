@@ -1,0 +1,15 @@
+<%= flash[:success] %>
+<%= link_to 'Editar', edit_employee_path(@employee) %>
+
+<h1><%= "Nome: #{@employee.name}" %></h1>
+<p><%= "Unidade: #{@employee.gym.name}" %></p>
+<p><%= "Status: #{@employee.translate_status}" %></p>
+<p><%= "Email específico: #{@employee.email}" %></p>
+
+<% if @employee.admin? %>
+  <p><%= "Admin: Sim" %></p>
+<% else %>
+  <p><%= "Admin: Nao" %></p>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>

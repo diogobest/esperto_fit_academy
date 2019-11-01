@@ -1,0 +1,7 @@
+
+<%= bootstrap_form_for @trainer, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4" do |f|%>
+  <%= f.text_field :name %>
+  <%= f.text_field :cpf %>
+  <%= f.text_field :email %>
+  <%= f.submit 'Cadastrar'%>
+<% end %>
