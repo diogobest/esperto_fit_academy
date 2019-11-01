@@ -9,8 +9,9 @@ services:
     build: .
     env_file:
       - jwt.env
+      - database_info.env
     ports:
-      - "4000:3000"
+      - "80:80"
     depends_on:
       - db
       - sidekiq
@@ -34,6 +35,8 @@ services:
       - db
     depends_on:
       - redis
+
+
 
 volumes:
   Academy:
